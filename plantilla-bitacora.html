@@ -1,0 +1,465 @@
+<title>Bitácora TaxiCab — Lun 31 ago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+  :root {
+    --ground: #F5F0E6;
+    --ground-elev: #FBF7EE;
+    --ink: #1E1E1E;
+    --ink-2: #4B4744;
+    --ink-3: #7A7570;
+    --rule: #D6CDBC;
+    --rule-strong: #B9AF9B;
+    --accent: #7B3F00;
+
+    --st-done-bg: #E4EDE5;
+    --st-done-fg: #275640;
+    --st-progress-bg: #F1E4CA;
+    --st-progress-fg: #7C5000;
+    --st-deployed-bg: #E1E6F1;
+    --st-deployed-fg: #2C4478;
+    --st-blocked-bg: #F1E1E1;
+    --st-blocked-fg: #6E1E1E;
+
+    --serif: "Fraunces", ui-serif, Georgia, "Times New Roman", serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  }
+
+  :root:not([data-theme="light"]) {
+    @media (prefers-color-scheme: dark) {
+      --ground: #17150F;
+      --ground-elev: #1F1C15;
+      --ink: #F0EADB;
+      --ink-2: #C6BFB0;
+      --ink-3: #8B857A;
+      --rule: #2E2A22;
+      --rule-strong: #443F34;
+      --accent: #E3A05B;
+
+      --st-done-bg: #1E2E23;
+      --st-done-fg: #8FCCA7;
+      --st-progress-bg: #33270F;
+      --st-progress-fg: #E7B968;
+      --st-deployed-bg: #1F2637;
+      --st-deployed-fg: #A5B7DE;
+      --st-blocked-bg: #2E1B1B;
+      --st-blocked-fg: #E7A6A6;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #17150F;
+    --ground-elev: #1F1C15;
+    --ink: #F0EADB;
+    --ink-2: #C6BFB0;
+    --ink-3: #8B857A;
+    --rule: #2E2A22;
+    --rule-strong: #443F34;
+    --accent: #E3A05B;
+
+    --st-done-bg: #1E2E23;
+    --st-done-fg: #8FCCA7;
+    --st-progress-bg: #33270F;
+    --st-progress-fg: #E7B968;
+    --st-deployed-bg: #1F2637;
+    --st-deployed-fg: #A5B7DE;
+    --st-blocked-bg: #2E1B1B;
+    --st-blocked-fg: #E7A6A6;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.55;
+    margin: 0;
+    padding: 48px 24px 96px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "kern", "liga", "calt";
+  }
+
+  .page {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ─────────────────────────────────────────── */
+  header.masthead {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--rule-strong);
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin-bottom: 12px;
+  }
+
+  h1.title {
+    font-family: var(--serif);
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-size: clamp(38px, 6vw, 56px);
+    line-height: 1.02;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  .masthead-meta {
+    display: grid;
+    gap: 6px;
+    justify-items: end;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .masthead-meta strong { color: var(--ink-2); font-weight: 500; }
+
+  /* ── TL;DR ──────────────────────────────────────────── */
+  .tldr {
+    margin: 40px 0 48px;
+    padding: 24px 28px;
+    background: var(--ground-elev);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px;
+  }
+  .tldr h2 {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    margin: 0 0 10px;
+  }
+  .tldr p {
+    margin: 0;
+    font-family: var(--serif);
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.42;
+    color: var(--ink);
+    text-wrap: pretty;
+  }
+
+  /* ── Section heading ─────────────────────────────────── */
+  h2.section {
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+    margin: 48px 0 20px;
+    color: var(--ink);
+  }
+
+  /* ── Change card ─────────────────────────────────────── */
+  .changes {
+    display: grid;
+    gap: 24px;
+  }
+
+  .change {
+    background: var(--ground-elev);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    padding: 24px 26px;
+    display: grid;
+    gap: 18px;
+  }
+
+  .change-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .change-head h3 {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    white-space: nowrap;
+    flex: 0 0 auto;
+  }
+  .status::before {
+    content: "";
+    width: 6px; height: 6px;
+    border-radius: 999px;
+    background: currentColor;
+  }
+  .status.done { background: var(--st-done-bg); color: var(--st-done-fg); }
+  .status.progress { background: var(--st-progress-bg); color: var(--st-progress-fg); }
+  .status.deployed { background: var(--st-deployed-bg); color: var(--st-deployed-fg); }
+  .status.blocked { background: var(--st-blocked-bg); color: var(--st-blocked-fg); }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px 20px;
+    margin: 0;
+    padding: 14px 0;
+    border-top: 1px dashed var(--rule);
+    border-bottom: 1px dashed var(--rule);
+  }
+  .facts > div { display: grid; gap: 3px; }
+  .facts dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .facts dd {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.35;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .facts dd .role {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 1px 6px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 3px;
+    margin-right: 4px;
+    color: var(--ink-2);
+  }
+
+  .what > * { margin: 0; }
+  .what > * + * { margin-top: 12px; }
+  .what p { font-size: 15px; line-height: 1.55; color: var(--ink); }
+  .what .label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    display: block;
+    margin-bottom: 3px;
+  }
+
+  .note {
+    font-size: 13px;
+    color: var(--ink-2);
+    background: var(--ground);
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    padding: 10px 14px;
+    font-style: italic;
+  }
+
+  /* ── Footer ─────────────────────────────────────────── */
+  footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Print button ───────────────────────────────────── */
+  .print-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 8px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--ground);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  }
+  .print-btn:hover { opacity: 0.9; }
+  .print-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Print styles ───────────────────────────────────── */
+  @media print {
+    @page { margin: 15mm 15mm 20mm; size: A4; }
+    body {
+      background: #ffffff;
+      color: #000000;
+      padding: 0;
+      font-size: 11pt;
+    }
+    .page { max-width: none; }
+    .print-btn { display: none; }
+    .change {
+      page-break-inside: avoid;
+      background: #ffffff;
+      border: 1px solid #bfbfbf;
+      box-shadow: none;
+    }
+    .tldr {
+      background: #f4f0e6;
+      border-left-color: #7B3F00;
+    }
+    h2.section { margin-top: 24px; }
+    footer { color: #666; }
+    .status.done { background: #dcecdc; color: #1b4030; }
+    .status.progress { background: #f0e5c9; color: #5c3a00; }
+    .status.deployed { background: #d9e0ec; color: #23345f; }
+    .status.blocked { background: #eed7d7; color: #5a1717; }
+  }
+</style>
+
+<button class="print-btn" onclick="window.print()" aria-label="Imprimir o guardar como PDF">Imprimir / PDF</button>
+
+<div class="page">
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">Bitácora diaria · Semana 36</div>
+      <h1 class="title">Lunes 31 de agosto</h1>
+    </div>
+    <div class="masthead-meta">
+      <div>Producto <strong>TaxiCab</strong></div>
+      <div>Reportado por <strong>Luis</strong></div>
+    </div>
+  </header>
+
+  <div class="tldr">
+    <h2>Resumen del día</h2>
+    <p>El panel del administrador tiene ahora una métrica más honesta de choferes, disponible también para los demás roles operativos. El reporte descargable de "Uso de Unidades" incluye ahora una gráfica de la evolución del período. Se corrigió una advertencia roja que se veía en el sitio al crear un usuario.</p>
+  </div>
+
+  <h2 class="section">Cambios de la jornada</h2>
+
+  <div class="changes">
+
+    <!-- ────────────────────────────────────────────────── -->
+    <article class="change">
+      <div class="change-head">
+        <h3>La tarjeta de "choferes en ruta / activos" ya dice la verdad</h3>
+        <span class="status deployed">Publicado a producción</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Quién lo ve</dt><dd><span class="role">Administrador</span><span class="role">Super Admin</span><span class="role">Central</span><span class="role">Programador</span><span class="role">Encargado</span></dd></div>
+        <div><dt>Dónde</dt><dd>Panel de cada rol · tarjeta de resumen</dd></div>
+        <div><dt>Estado</dt><dd>Probado en pruebas · falta publicar al sitio</dd></div>
+      </dl>
+      <div class="what">
+        <p><span class="label">Qué se hizo</span>La tarjeta que muestra "choferes en ruta / total" ahora compara contra los choferes que están habilitados en el sistema, no contra todos los que alguna vez se dieron de alta. Se ignoran los que fueron dados de baja o inhabilitados. La tarjeta se replicó en los paneles de todos los roles operativos.</p>
+        <p><span class="label">Por qué importaba</span>La cifra se veía peor de lo real: contaba en el "total" a choferes que ya no forman parte de la operación. Ahora refleja quiénes están realmente disponibles hoy, y todos los roles con acceso a la operación la ven.</p>
+      </div>
+    </article>
+
+    <!-- ────────────────────────────────────────────────── -->
+    <article class="change">
+      <div class="change-head">
+        <h3>Registro de altas y bajas de choferes</h3>
+        <span class="status deployed">Publicado a producción</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Quién lo ve</dt><dd><span class="role">Administrador</span> (indirecto, en el reporte descargable)</dd></div>
+        <div><dt>Dónde</dt><dd>De aquí en adelante, en todo el sistema</dd></div>
+        <div><dt>Estado</dt><dd>Publicado a producción al sitio</dd></div>
+      </dl>
+      <div class="what">
+        <p><span class="label">Qué se hizo</span>Cada vez que alguien habilita o inhabilita a un chofer, ahora queda registrado con fecha y hora. También se rellenó el registro de los choferes que ya existían para que la información histórica esté completa desde el arranque.</p>
+        <p><span class="label">Por qué importaba</span>Sirve como base para el reporte descargable de "Uso de Unidades", que ahora incluye una gráfica del pico diario de choferes en ruta y activos. Sin el registro, esa gráfica sólo mostraría el estado actual repetido en todos los días.</p>
+      </div>
+    </article>
+
+    <!-- ────────────────────────────────────────────────── -->
+    <article class="change">
+      <div class="change-head">
+        <h3>El reporte de "Uso de Unidades" ahora trae una gráfica</h3>
+        <span class="status deployed">Publicado a producción</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Quién lo ve</dt><dd><span class="role">Administrador</span></dd></div>
+        <div><dt>Dónde</dt><dd>Panel del administrador · Uso de Unidades · botón para exportar el reporte</dd></div>
+        <div><dt>Estado</dt><dd>Probado en pruebas · falta publicar al sitio</dd></div>
+      </dl>
+      <div class="what">
+        <p><span class="label">Qué se hizo</span>El reporte que se descarga para un rango de fechas ahora incluye al inicio una gráfica con el pico diario de choferes en ruta y choferes activos durante ese rango.</p>
+        <p><span class="label">Por qué importaba</span>Antes el reporte era una tabla larga con muchos números. La gráfica da una vista rápida del comportamiento del período antes de meterse al detalle unidad por unidad.</p>
+        <p class="note">Si se pide el reporte para un solo día o no hay movimiento en el rango, en lugar de una gráfica vacía se ve un mensaje corto explicándolo. Esto es lo esperado.</p>
+      </div>
+    </article>
+
+    <!-- ────────────────────────────────────────────────── -->
+    <article class="change">
+      <div class="change-head">
+        <h3>Se quita la franja roja de advertencia del sitio</h3>
+        <span class="status deployed">Corregido · falta publicar</span>
+      </div>
+      <dl class="facts">
+        <div><dt>Quién lo veía</dt><dd><span class="role">Administrador</span> (al crear usuarios en el sitio)</dd></div>
+        <div><dt>Dónde</dt><dd>Sitio en línea · al crear un nuevo usuario</dd></div>
+        <div><dt>Estado</dt><dd>Corregido · falta publicar al sitio</dd></div>
+      </dl>
+      <div class="what">
+        <p><span class="label">Qué se hizo</span>Se detectó y corrigió el motivo por el cual, al crear un usuario en el sitio real, aparecía abajo una franja roja diciendo que se estaba trabajando en un ambiente de pruebas.</p>
+        <p><span class="label">Por qué importaba</span>Daba mala imagen y sembraba la duda de si los usuarios que se estaban creando eran reales o de prueba (siempre fueron reales — era sólo el mensaje mal configurado). Con el arreglo esa franja ya no aparece.</p>
+      </div>
+    </article>
+
+  </div>
+
+  <section class="pending">
+    <h2 class="section">Estado del despliegue</h2>
+    <p style="color: var(--ink-2); font-size: 15px; margin: 0 0 12px;">Todos los cambios de hoy están ya publicados en el sitio real (<a href="https://taxicab-a92b9.web.app" style="color: var(--accent);">taxicab-a92b9.web.app</a>) y son visibles para los usuarios que abran la aplicación web.</p>
+  </section>
+
+  <footer>
+    <div>Bitácora TaxiCab</div>
+    <div>Generado 2026-08-31</div>
+  </footer>
+</div>
